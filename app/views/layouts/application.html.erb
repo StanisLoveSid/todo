@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="google-site-verification" content="3li0DutDNLzYNQTjR5_Fym6cLjez59T8A15UUSo_TSM" />
+<meta name='yandex-verification' content='72297eb1250c1dc3' />
+  <title>Bloglab</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', 'http://fonts.googleapis.com/css?family=Raleway:400,700' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+ <div id="sidebar">
+	 <div id= "logo">
+		 <%= link_to root_path do %>
+			 <%= image_tag "ichiban.png" %>
+		 <% end %>
+	 </div>
+
+	 <ul>
+		 <li class="category"><%= t "layouts.title"  %></li>
+		 <li><%= link_to(t('layouts.blog'), root_path)  %></li>
+		 <li><%= link_to(t('layouts.about'), about_path) %></li>
+		 <li><a href="http://blog.jankenpon.info/users/sign_up"><%= t 'layouts.registration' %></a></li>
+
+	 </ul>
+
+	 <ul>
+		 <li class="category"><%= t "layouts.contacts"%></li>
+		 <li><a href="http://vk.com/id90664978">VK</a></li>
+		 <li><a href="https://twitter.com/StasSidorenko2">Twitter</a></li>
+		
+	 </ul>
+
+	 <ul>
+		 <li class="category"><%= t "layouts.languages" %></li>
+		 <li><%= link_to_unless_current "English", locale: "en" %></li>
+		 <li><%= link_to_unless_current "日本語", locale: "ja" %></li>
+		 <li><%= link_to_unless_current "Українська", locale: "ua" %></li>
+	 </ul> 
+
+	 <ul>
+	 	<%= form_tag search_posts_path, method: :get, class: "navbar-form navbar-right", role: "search" do %>
+        <p>
+          <%= text_field_tag :search, params[:search], class: "form-control" %>
+          <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+        </p>
+      <% end %>
+	 </ul>
+
+       <% if !user_signed_in? %>  
+	       <p class="sign_in"></p>
+       <% end %>
+ </div>
+
+ <div id="main_content">
+	 <div id="header">
+		 
+		 <% if current_page?(root_path) %>
+			 <p>All posts</p>
+		 <% elsif current_page?(about_path) %>
+			 <p>About</p>
+		 <% else %>
+			 <%= link_to(t("layouts.back_to_all_posts"), root_path) %>
+		 <% end %>
+
+		 
+                 <% if user_signed_in? %>
+
+		 <div class="buttons">
+			 <button class="button"><%= link_to(t("layouts.new_post"), new_post_path) %></button>
+	</button><%= link_to(t("layouts.log_out"), destroy_user_session_path, :class => "button", method: :delete) %>
+         <button class="button"><%= link_to 'Account', edit_user_registration_path %></button>
+
+         
+		 </div>
+	 <% end %>
+	 <% if !user_signed_in? %>
+		 <div class="buttons">
+			 <button class="button"><%= link_to(t("layouts.log_in"), new_post_path) %></button> 
+		 </div>
+	 <% end %>
+	 
+	 </div>
+ 
+	 <% flash.each do |name, msg|%>
+		 <%= content_tag(:div, msg, class: "alert") %>
+	 <% end %> 
+ <%= yield %>
+ </div>
+ 
+
+</body>
+</html>
