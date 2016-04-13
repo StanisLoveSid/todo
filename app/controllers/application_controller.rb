@@ -4,6 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :set_locale
   before_action :configure_permitted_parameters, if: :devise_controller?
+  
+
+  def download_pdf
+  send_file(
+    "#{Rails.root}/public/your_file.pdf",
+    filename: "your_custom_file_name.pdf",
+    type: "application/pdf"
+  )
+end
 
   protected 
     def configure_permitted_parameters
@@ -11,9 +20,11 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:account_update) << :name
     end
 
+    
+
       def configure_permitted_parameters
-        devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password) }
-        devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :is_female, :date_of_birth, :avatar) }
+        devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :password_confirmation) }
+        devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :avatar) }
     end
 
   private 
@@ -25,7 +36,11 @@ class ApplicationController < ActionController::Base
 	  # request.remote_ip
   end
 
-  def default_url_uptions(options = {})
-	  {locale: I18n.locale}
+  def default_url_options(options = {})
+  { locale: I18n.locale }.merge options
   end
+
+  
+
+
 end

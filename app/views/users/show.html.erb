@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= current_user.name %>
+</p>
+
+<p>
+  <strong>Points:</strong>
+  <%= current_user.points %>
+</p>
+
+<p>
+  <strong>Purchase:</strong>
+  <%= current_user.purchase %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(current_user) %> |
+<%= link_to 'Back', users_path %>

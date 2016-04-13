@@ -11,8 +11,33 @@ gem 'acts_as_votable', '~> 0.10.0'
 gem 'simple_form', '~> 3.2'
 gem "paperclip", "~> 4.3"
 gem 'searchkick', '~> 1.1', '>= 1.1.2'
-
-
+gem 'elasticsearch', git: 'git://github.com/elasticsearch/elasticsearch-ruby.git'
+gem 'domp'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-vkontakte'
+gem "socialization"
+gem 'activerecord-reputation-system', require: 'reputation_system'
+gem 'acts-as-taggable-on'
+gem "mailboxer"
+gem 'impressionist'
+gem 'bookmark_system'
+gem 'postmark-rails'
+gem 'postmark'
+gem 'mail'
+gem 'aws-sdk'
+gem 'paperclip-av-transcoder'
+gem "paperclip-ffmpeg"
+gem 'ffmpeg'
+gem 'materialize-sass'
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-materialize'
+gem 'actionpack-page_caching'
+gem 'youtube_addy'
+gem 'ckeditor_rails'
+gem 'jquery-ui-rails'
+gem 'acts_as_list'
+gem 'remotipart', '~> 1.2', '>= 1.2.1'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -54,6 +79,7 @@ group :development do
   gem 'spring'
 
   gem 'devise', '~> 3.4.0'
+
   gem 'passenger'
 
 

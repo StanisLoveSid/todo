@@ -1,14 +1,45 @@
+<div class="comment_<%= comment.id %>">
 <%= div_for(comment) do %>
-	<div class="comments_wrapper clearfix">
+	<div class="card">
 		<div class="pull-left">
-			<p class="lead"><%= comment.body %></p>
-			<p><small>Submitted <strong><%= time_ago_in_words(comment.created_at) %> ago</strong> by <%= comment.user.name %></small></p>
+			<p class="body"><%= comment.body %></p>
+			 <% if comment.image.file? %>
+  <%=link_to image_tag(comment.image.url(:small)), comment.image.url(:original), :popup=>['original_image', 'height=700,width=900'] %>
+<% else %>
+  
+<% end %>
+
+
+    <%= link_to "My document", comment.document.url, target: "_blank" %>  
+
+
+<% if comment.video? %>
+<%= video_tag comment.video.url(:medium), controls: true, style: "max-width: 100%;" %>
+ <% else %>
+
+ <% end %>
+			<h5><small>Submitted <strong><%= time_ago_in_words(comment.created_at) %> ago</strong> by <% if comment.user.name? %>
+			               <%= comment.user.name %>
+			               <% else %>
+			                Incognito
+			                <% end %>
+			                </small></h5>
 		</div>
 
 		<div class="btn-group pull-right">
-			<% if comment.user == current_user -%>
-				<%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-default" %>
-			<% end %>
+			
+				<%= link_to 'Destroy', comment, method: :delete, remote: true, class: "btn" %>
+				
+				
+			
+			
+			 <p class="btn-group pull-right">
+			 <%= pluralize comment.reputation_for(:votes).to_i, "vote" %>
+			
+    <%= link_to "up", vote_comment_path(comment, type: "up"), method: "post", class: "btn" %>
+   <%= link_to "down", vote_comment_path(comment, type: "down"), method: "post", class: "btn" %>
+</p>
 		</div>
 	</div>
 <% end %>
+</div>
