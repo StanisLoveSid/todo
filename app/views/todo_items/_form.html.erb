@@ -1,7 +1,8 @@
 <div class="datepicker">
 <%= form_for([@post, @post.todo_items.build], remote: true) do |f| %>
-	<%= f.text_field :content, placeholder: "New Todo" %>
-	<%= f.text_field :deadline, type: "date", style: "width: 30%;" %>
-	<%= f.submit %>
+<p>Content(min length 5 characters)</p>
+	<%= f.text_field :content, id: "todo_item_body", placeholder: "New Todo" %>
+	<%= f.text_field :deadline, id: "todo_item_deadline", type: "date", style: "width: 30%;" %>
+	<%= f.submit(id: "new_todo_item", class: "btn") %>
 <% end %>
 </div>

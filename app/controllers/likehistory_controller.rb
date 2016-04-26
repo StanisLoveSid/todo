@@ -9,6 +9,7 @@ before_filter :set_locale
   def index
 		@posts = Post.all
 		@user == current_user 
+		
   end
 
 

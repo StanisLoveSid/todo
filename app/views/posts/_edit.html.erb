@@ -1,20 +1,20 @@
 <div id="page_wrapper">
-<h1> Edit Post  </h1>
+<h1> Edit Todo  </h1>
 
-   <%= form_for(@post, :url => {:action => 'update', :id => @post.id}) do |f| %>
+   <%= form_for(@post, :url => {:action => 'update', :id => @post.id}, remote: true) do |f| %>
 <div id="post_content">
 <div class="thecard", style="width: 1000px; background-color: #99d6ff">
 	
   <p>	
   *Title
-  <%= f.text_field :title %>
+  <%= f.text_field :title, id: "title" %>
   </p>
 
   
    <p>Share YouTube video by adding the link</p>
    <%= f.text_field :link %>
         <p>*Body(Press F5 for multifunctional text-editor)</p>    
-  <%= f.text_area :body, style: "height: 450px; background-color: white", :class => 'ckeditor'%>
+  <%= f.text_area :body,  id: "body", style: "height: 450px; background-color: white", :class => 'ckeditor'%>
   
        
 
@@ -33,7 +33,7 @@
   </p>
 
   <p>
-  <%= f.submit(t("posts.create_post"), class: "btn" ) %>
+  <%= f.submit(t("posts.create_post"), id: "edit_post", class: "btn" ) %>
   </p>
 </div>
 </div>

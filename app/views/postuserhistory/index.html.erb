@@ -19,7 +19,7 @@
      <i> Incognito </i> 
      <% end %><%= image_tag(post.user.avatar.url(:small), class: "circular") %></li>
   </ul>
-    <h4 class "title" ><%= link_to post.title, post, {style: "color: black; position: relative"} %></h4>
+    <h4 class "title" ><%= link_to post.title, post, {style: "color: black; position: relative", remote: true} %></h4>
      <i class="small material-icons">loyalty</i>
  
     <% post.tags.any? %>

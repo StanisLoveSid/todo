@@ -11,19 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
+//= require jquery_ujs
+//= require jquery-ui
 //= require materialize-sprockets
 //= require materialize/extras/nouislider
-//= require jquery-ui
-//= require jquery_ujs
+//= require sortable
 //= require jquery.remotipart
 //= require ckeditor-jquery
 //= require turbolinks
 //= require_tree .
 
 
-jQuery ->
-  $('#faqs').sortable()
-
-$('.ckeditor').ckeditor({
-  // optional config
-});

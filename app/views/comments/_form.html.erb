@@ -4,18 +4,18 @@
 	
 	<br>
 	<%= f.label(t("comments.body"), style: "color: black; font-size: 20px;") %><br>
-	<%= f.text_area :body, placeholder: 'Type your comment here!', class: "materialize-textarea", style: "width: 40%;" %><br>
+	<%= f.text_area :body, id:"comment_body", placeholder: 'Type your comment here!', class: "materialize-textarea", style: "width: 40%;" %><br>
 	<br>
 	 <div class="form-group">
         <%= f.label :image, style: "color: black;", class: 'col-sm-2 control-label'  %>
         <div class="col-sm-6">
-            <%= f.file_field :image, class: "btn" %>
-            Document
-            <%= f.file_field :document, class: "btn" %>
+            <%= f.file_field :image, id: "add_image", class: "btn" %>
+         <p>   <%= f.label :document, style: "color: black;", class: 'col-sm-2 control-label'  %> </p>
+            <%= f.file_field :document, id: "add_document", class: "btn" %>
         </div>
     </div>
   <div> <%= f.label :video, style: "color: black;" %> </div>
-    <%= f.file_field :video, class: "btn" %>
-	<%= f.submit(t("comments.create_comment"), class: "btn") %>
+    <%= f.file_field :video, id: "add_video", class: "btn" %>
+<p>	<%= f.submit(t("comments.create_comment"), id: "new_comment", class: "btn") %> </p>
 <% end %>
 </div>

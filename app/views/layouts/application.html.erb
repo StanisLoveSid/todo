@@ -8,7 +8,13 @@
   <title>Bloglab</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-
+<script>
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+</script>
  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <%= stylesheet_link_tag 'application', 'http://fonts.googleapis.com/css?family=Raleway:400,700' %>
@@ -24,12 +30,12 @@
  <div class="navbar-fixed">
  <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo" style="padding-left: 4%;" >ToDo:</a>
+     <%= link_to "ToDo:", root_path, class: "brand-logo", style: "padding-left: 4%;"%>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><%= link_to(t("layouts.new_post"), new_post_path) %></li>
+    
       <li><%= link_to(t("layouts.log_out"), destroy_user_session_path, method: :delete) %></li>
-      <li><%= link_to 'Account', edit_user_registration_path %></li>
-      <li><%= link_to 'My todo items', postuserhistory_path %></li>
+      <li><%= link_to 'Account', edit_user_registration_path, id: "account" %></li>
+    
         <li><%= link_to 'My messages', conversations_path %></li>
         <li><%= link_to 'Tags', tagpages_path %></li>
         <li><%= link_to 'Favorites', likehistory_path %></li>
@@ -39,7 +45,7 @@
  </div>
       <div id="wrapper" class="toggled">
 
-        <!-- Sidebar -->
+  
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
@@ -49,8 +55,8 @@
                   <ul>
 		 <li class="category", style="color: white;"><%= t "layouts.title"  %></li>
 		 <li><%= link_to(t('layouts.blog'), root_path)  %></li>
-		 <li><%= link_to(t('layouts.about'), about_path) %></li>
-		 <li><a href="http://blog.jankenpon.info/users/sign_up"><%= t 'layouts.registration' %></a></li>
+		
+		 <li><%= link_to(t('layouts.registration'), new_user_registration_path) %></li>
 
 	 </ul>
 
@@ -83,9 +89,7 @@
       <% end %>
 	 </ul>
         </div>
-        <!-- /#sidebar-wrapper -->
 
-        <!-- Page Content -->
         
         <div id="page-content-wrapper">
             <div class="container-fluid">
@@ -99,15 +103,10 @@
             </div>
         </div>
         
-        <!-- /#page-content-wrapper -->
+
 
     </div>
-    <!-- /#wrapper -->
 
-    <!-- jQuery -->
-   
-
-    <!-- Menu Toggle Script -->
 
     <script>
     $("#menu-toggle").click(function(e) {
@@ -120,10 +119,10 @@
 <div class="navbar-fixed">
  <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo">じゃんけんぽん</a>
+      <%= link_to "ToDo:", root_path, class: "brand-logo", style: "padding-left: 4%;"%>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
        
-       <li><%= link_to(t("layouts.log_in"), new_post_path, class: "btn waves-effect waves-light") %></li> 
+       <li><%= link_to(t("layouts.log_in"), new_user_session_path, class: "btn waves-effect waves-light") %></li> 
 
   <li><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook), class: "btn waves-effect waves-light" %>
   <li><%= link_to "Sign in with Vkontakte", user_omniauth_authorize_path(:vkontakte), class: "btn waves-effect waves-light" %>
@@ -136,7 +135,7 @@
  </div>
       <div id="wrapper" class="toggled">
 
-        <!-- Sidebar -->
+      
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
@@ -146,8 +145,7 @@
                   <ul>
      <li class="category", style="color: white;"><%= t "layouts.title"  %></li>
      <li><%= link_to(t('layouts.blog'), root_path)  %></li>
-     <li><%= link_to(t('layouts.about'), about_path) %></li>
-     <li><a href="http://blog.jankenpon.info/users/sign_up"><%= t 'layouts.registration' %></a></li>
+     <li><%= link_to(t('layouts.registration'), new_user_registration_path) %></li>
 
    </ul>
 
@@ -180,9 +178,7 @@
       <% end %>
    </ul>
         </div>
-        <!-- /#sidebar-wrapper -->
 
-        <!-- Page Content -->
         
         <div id="page-content-wrapper">
             <div class="container-fluid">
@@ -196,15 +192,10 @@
             </div>
         </div>
         
-        <!-- /#page-content-wrapper -->
+
 
     </div>
-    <!-- /#wrapper -->
 
-    <!-- jQuery -->
-   
-
-    <!-- Menu Toggle Script -->
 
     <script>
     $("#menu-toggle").click(function(e) {
@@ -236,8 +227,8 @@
           <div class="container">
             <div class="row">
               <div class="col l6 s12">
-                <h5 class="white-text">今日は！私たちのサイトじゃんけんぽんの中で君がいる！</h5>
-                <p class="grey-text text-lighten-4">みんなに日本語!</p>
+                <h5 class="white-text">Do what you have to do!</h5>
+                <p class="grey-text text-lighten-4">Do or Die</p>
               </div>
               <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Contact links</h5>
@@ -251,8 +242,8 @@
           </div>
           <div class="footer-copyright">
             <div class="container">
-            © 2016 Jankenpon. All rights reserved. 
-            <a class="grey-text text-lighten-4 right">Explore japanese!</a>
+            © 2016 Todo app for RubyGarage. All rights reserved. 
+            <a class="grey-text text-lighten-4 right">Code, please</a>
             </div>
           </div>
         </footer>

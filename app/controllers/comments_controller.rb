@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
 
+   respond_to :js, :html
 
 
   # POST /comments
@@ -17,7 +18,7 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.new(comment_params)
-    if @comment.user = current_user
+
 
     respond_to do |format|
       if @comment.save
@@ -30,11 +31,6 @@ class CommentsController < ApplicationController
         format.js
       end
     end
-  else
-    respond_to do |format|
-   format.html {redirect_to posts_url, notice: 'You have to sign in or sign up to leave comments'}
-   end
-  end
 
   end
 
@@ -77,6 +73,7 @@ class CommentsController < ApplicationController
 
  def index
   @comments = Comment.find_with_reputation(:votes, :all, order: "votes desc")
+  respond_with @comments
  end
 
 def vote

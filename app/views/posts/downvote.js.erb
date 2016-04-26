@@ -1,0 +1,5 @@
+$("#dislike_post_<%=@post.id%>").fadeIn(500, function(){
+
+	$("#disliker_<%=@post.id%>").html("<%=escape_javascript @post.get_downvotes.size.to_s %>")
+    $("#liker_<%=@post.id%>").html("<%=escape_javascript @post.get_upvotes.size.to_s %>")
+});

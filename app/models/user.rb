@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   acts_as_messageable
   has_many :evaluations, class_name: "RSEvaluation", as: :source
   has_many :posts
+  has_many :comments
   acts_as_voter
   has_many :favorite_posts  
   has_many :favorites, through: :favorite_posts, source: :post
@@ -41,7 +42,7 @@ end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
-  devise :database_authenticatable, :registerable, 
+  devise :omniauthable, :database_authenticatable, :registerable, 
       :recoverable, :rememberable, :trackable, :validatable, :omniauthable
   validates_presence_of :email
   validates_confirmation_of  :password

@@ -38,13 +38,17 @@ gem 'ckeditor_rails'
 gem 'jquery-ui-rails'
 gem 'acts_as_list'
 gem 'remotipart', '~> 1.2', '>= 1.2.1'
+gem 'sortable-rails', '~> 0.0.2', github: 'scttdavs/sortable-rails'
+gem 'jquery-turbolinks'
+
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -67,8 +71,9 @@ gem 'unicorn'
 gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'factory_girl_rails' # factory generators
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -77,12 +82,24 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
+  
   gem 'devise', '~> 3.4.0'
 
   gem 'passenger'
 
 
+end
+
+
+group :test do
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
+  gem 'guard-rspec'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'capybara-webkit'
+  gem 'poltergeist'
+  gem 'rb-inotify'
 end
 
 

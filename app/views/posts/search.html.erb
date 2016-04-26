@@ -1,49 +1,144 @@
+<div style="padding-left: 8%;"><%= link_to new_post_path, style: "padding: 3%; padding-bottom: 5.5%; padding-left: 8%; padding-right: 8%;", remote: true, class: "btn" do %>New todo <% end %> </div>
+
+<div id="posts", style="padding-bottom: 20%;">
+<% if user_signed_in? %>
 <% @posts.each do |post| %>
 
 
-  
+  <div id="post_<%=post.id%>">
      <div id="post_content">
-     <div class="card">
-    <h4 class "title" ><%= link_to post.title, post, {style: "color: black"} %></h4>
-     <i class="small material-icons">loyalty</i>
-
-    <% post.tags.any? %>
-     <% post.tags.each do |tag| %>
-     <div class="chip">
-        <%= link_to tag.name, tag_path(tag.name)%>
-     </div>  
-<% end %>
-    <p class="author">Submitted <%= time_ago_in_words(post.created_at) %> 
+     <div class="card", style="width: 55%;">
+     <ul id="menu">
+    <li class="author">Submitted <%= time_ago_in_words(post.created_at) %> 
      <% if post.user.name? %>
      by <%=  post.user.name%> 
      <% else %>
      by Incognito 
      <% end %>
-    </p>﻿
+    </li>﻿
 
-  <div class="chip"><%= image_tag(post.user.avatar.url(:small))  %></div>
-   <div class="btn-group", style="padding-top: 2%;">
+  <li class="center"><% if post.user.name? %>
+     <i> <%=  post.user.name%> </i>
+     <% else %>
+     <i> Incognito </i> 
+     <% end %><%= image_tag(post.user.avatar.url(:small), class: "circular") %></li>
+  </ul>
+    <h4 class "title" ><%= link_to post.title, post, {style: "color: black; position: relative", remote: true} %></h4>
+     <i class="small material-icons">loyalty</i>
  
-      <%= link_to like_post_path(post), method: :put, class: "btn btn-default btn-sm" do %>
-        <span class="glyphicon glyphicon-chevron-up"></span>
-        Like <i class="small material-icons">thumb_up</i>
-        <%= post.get_upvotes.size %>
-      <% end %>
-      <%= link_to dislike_post_path(post), method: :put, class: "btn btn-default btn-sm" do %>
-        <span class="glyphicon glyphicon-chevron-down">
-        Dislike <i class="small material-icons">thumb_down</i>
-        <%= post.get_downvotes.size %>
-      <% end %>
-    </div>
-   <div class="small material-icons", style="padding-top: 4%;">comment</div>
- <%= post.comments.count %> Comment(s)
- <div>
- <i class="small material-icons">insert_chart</i>
-<%= "#{post.impressionist_count} views" %>
+    <% post.tags.any? %>
+    <div class="tags">
+     <% post.tags.each do |tag| %>
+     
+        <%= link_to tag.name, tag_path(tag.name), class: "tag"%>
+      
+<% end %>
+
 </div>
+
+
+
+<ul id="todo_items" data-update-url="/posts/<%=post.id%>/todo_items/sort" >
+  <% post.todo_items.each do |todo_item| %>
+    
+
+    <% if todo_item.completed? %>
+    <li id="todo_item_<%= todo_item.id %>" >
+          <table class="highlight">
+        <tbody>
+          <tr>
+            <td>
+             
+            <span class="handle"> <i class="material-icons">swap_vert</i> </span><%= todo_item.deadline %> <i id="body", style="padding-left: 10%;"><strike> <%= todo_item.content %></strike> </i> </td>
+              
+             <td> 
+              
+              <%= link_to edit_post_todo_item_path(post, todo_item), remote: true do %>
+        <i class="material-icons right">edit</i> 
+      <% end %>
+             <%= link_to complete_post_todo_item_path(post, todo_item.id), remote: true, method: :patch do %>
+        <i class="material-icons right">done</i> 
+      <% end %>
+        <%= link_to post_todo_item_path(post, todo_item.id), method: :delete, remote: true, data: { confirm: "Are you sure?" } do %>
+        <i class="material-icons right" style="padding-left: 0%;">delete</i> 
+      <% end %>
+
+      </td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+    <% else %>
+     <li id="todo_item_<%= todo_item.id %>" > 
+       <table class="highlight">
+        <tbody>
+          <tr>
+            <td>
+             
+            <span class="handle"> <i class="material-icons">swap_vert</i> </span> <%= todo_item.deadline %> <i id="body", style="padding-left: 10%;"> <%= todo_item.content %> </i> </td>
+              
+             <td> 
+              
+              <%= link_to edit_post_todo_item_path(post, todo_item), remote: true do %>
+        <i class="material-icons right">edit</i> 
+      <% end %>
+             <%= link_to complete_post_todo_item_path(post, todo_item.id), remote: true, method: :patch do %>
+        <i class="material-icons right">done</i> 
+      <% end %>
+        <%= link_to post_todo_item_path(post, todo_item.id), method: :delete, remote: true, data: { confirm: "Are you sure?" } do %>
+        <i class="material-icons right" style="padding-left: 0%;">delete</i> 
+      <% end %>
+
+      </td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+    <% end %>
+  <% end %>
+</ul>
+
+
+<ul id="menu">
+  
+   <li id="like_post_<%=post.id%>", style="padding-top: 2%;">
+
+       <%= link_to like_post_path(post), method: :put, remote: true, class: 'btn' do %> 
+     <o> Like </o>
+     <i class="small material-icons">thumb_up</i> <o id="liker_<%=post.id%>"> <%= post.get_upvotes.size %> </o>
+ <% end %>
+ </li>
+        
+   
+   <li id="dislike_post_<%=post.id%>", style="padding-top: 2%;">   
+      <%= link_to dislike_post_path(post), method: :put, remote: true, class: 'btn' do %> 
+     <o> Dislike </o>
+     <i class="small material-icons">thumb_down</i> <o id="disliker_<%=post.id%>"> <%= post.get_downvotes.size %> </o>
+ <% end %>
+ </li>
+</ul>
+
+
+     <ul id="menu">
+  
+
+   <li class="small material-icons", style="padding-top: 4%;">comment</li>
+ <%= post.comments.count %> Comment(s)
+
+ <li class="small material-icons", style="padding-left: 4%">insert_chart</li>
+<%= "#{post.impressionist_count} views" %>
+
+</ul>
   <div calss="saveme">
   </div>
   </div>
  
  </div>
+ </div>
 <% end %>
+<% else %>
+<% end %>
+
+
+</div>
+  

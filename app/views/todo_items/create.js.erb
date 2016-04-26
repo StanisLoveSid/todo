@@ -1,3 +1,6 @@
 $('#todo_items').fadeIn(1500, function(){
 	$(this).html("<%=j render @post.todo_items %>");
+	$('#todo_item_body').val('');
+	$('#todo_item_deadline').val('');
+	$("#notify").text("Todo item is successfully created");
 });

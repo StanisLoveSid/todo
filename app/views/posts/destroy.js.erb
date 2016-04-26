@@ -1,0 +1,8 @@
+$("#post_<%=@post.id%>").fadeOut(500, function(){
+
+	$(this).remove();
+	$("#posts").prepend('deleted');
+	$("#post_content").prepend('<%= j render("index") %>')
+
+});
+

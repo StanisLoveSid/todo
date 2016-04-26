@@ -1,17 +1,17 @@
 
-<%= form_for @post do |f| %>
+<%= form_for(@post, remote: true ) do |f| %>
 	<div id="post_content">
 <div class="thecard", style="width: 1000px; background-color: #99d6ff">
 	
   <p>	
-  *Title
-  <%= f.text_field :title %>
+  <%= f.label :title %>
+  <%= f.text_field :title, id:"title" %>
   </p>
-  <p>*Body(Press F5 for multifunctional text-editor)</p>
+  <p>*Body(min length 30 characters)</p>
   
 
 
-   <%= f.text_area :body, style: "height: 450px; background-color: white", :class => 'ckeditor'%>
+   <%= f.text_area :body, id:"body", style: "height: 450px; background-color: white", :class => 'ckeditor'%>
     <p>Share YouTube video by adding the link</p>
    <%= f.text_field :link %>
           
@@ -34,7 +34,7 @@
   </p>
 
   <p>
-  <%= f.submit(t("posts.create_post"), class: "btn" ) %>
+  <%= f.submit(t("posts.create_post"), id: "create_todo", class: "btn" ) %>
   </p>
   
 </div>

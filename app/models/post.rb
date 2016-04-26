@@ -18,12 +18,12 @@ YT_LINK_FORMAT = /\A.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*)
 	acts_as_taggable
 	acts_as_votable
 	act_as_bookmarkee
-    has_many :todo_items
+    has_many :todo_items, -> { order(position: :asc) }, dependent: :destroy
     has_many :favorite_posts  
     has_many :favorited_by, through: :favorite_posts, source: :user
     has_many   :comments, dependent: :destroy
 	validates :title, presence: true, length: {minimum: 5 }
-	validates :body, presence: true
+	validates :body, presence: true, length: {minimum: 5}
 
 	has_attached_file :image, styles: { medium: "700x500#", small: "350x250#" }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/

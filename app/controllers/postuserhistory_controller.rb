@@ -2,11 +2,12 @@ class PostuserhistoryController < ApplicationController
 helper_method :current_user
 before_action :authenticate_user!, except: [:index, :show]
 before_filter :set_locale
-
+respond_to :js
 
   def index
 		@posts = Post.all
 		@user == current_user 
+		
   end
 
 

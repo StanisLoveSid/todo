@@ -1,3 +1,4 @@
 $('#todo_items').fadeIn(1500, function(){
 	$("#todo_item_<%=@todo_item.id%>").css('text-decoration', 'line-through');
+	$("#notify").text("Todo item is successfully completed");
 });

@@ -1,4 +1,5 @@
 $('#comments').fadeIn(1500, function(){
 	$(this).html("<%=j render @post.comments %>")
 	$('#comment_body').val('');
+	$("#comments_notify").text("Comment is succsessfully created");
 });

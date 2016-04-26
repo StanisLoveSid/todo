@@ -1,35 +1,29 @@
-<div class="comment_<%= comment.id %>">
+<div id="comment_<%= comment.id %>">
 <%= div_for(comment) do %>
 	<div class="card">
 		<div class="pull-left">
 			<p class="body"><%= comment.body %></p>
-			 <% if comment.image.file? %>
+			 <% if comment.image.file? %>Image
   <%=link_to image_tag(comment.image.url(:small)), comment.image.url(:original), :popup=>['original_image', 'height=700,width=900'] %>
 <% else %>
   
 <% end %>
 
-
+     <% if comment.document.file? %>
     <%= link_to "My document", comment.document.url, target: "_blank" %>  
-
-
-<% if comment.video? %>
+      <% else %>
+        <% end %>
+<% if comment.video? %>Video
 <%= video_tag comment.video.url(:medium), controls: true, style: "max-width: 100%;" %>
  <% else %>
 
  <% end %>
-			<h5><small>Submitted <strong><%= time_ago_in_words(comment.created_at) %> ago</strong> by <% if comment.user.name? %>
-			               <%= comment.user.name %>
-			               <% else %>
-			                Incognito
-			                <% end %>
-			                </small></h5>
+		
 		</div>
 
 		<div class="btn-group pull-right">
-			
-				<%= link_to 'Destroy', comment, method: :delete, remote: true, class: "btn" %>
-				
+			   
+				<%= link_to 'Destroy', comment, id: "delete_comment", method: :delete, remote: true, class: "btn" %>
 				
 			
 			

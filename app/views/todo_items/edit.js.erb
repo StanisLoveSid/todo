@@ -1,1 +1,1 @@
-$('#todo_item_<%=@todo_item.id%>').remove().append('<%= j render("form") %>').append('#todo_item_<%=@todo_item.id%>');
+$('#todo_item_<%=@todo_item.id%>').append('<%= j render("edit") %>')

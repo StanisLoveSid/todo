@@ -13,6 +13,18 @@ html, body {
 	font-family: 'Raleway', sans-serif;
 	background-image: image-url("neko.jpg");
 	background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+
+
+#todo_items .handle {
+   font-size: 12px;
+   color: #777;
+   cursor: move;
 }
 
 .heading {
@@ -133,7 +145,7 @@ ul#menu li {
 
 ul#menu li a {
    
-    padding: 10px 20px;
+    
     text-decoration: none;
     border-radius: 4px 4px 0 0;
 }

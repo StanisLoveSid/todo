@@ -1,0 +1,7 @@
+<div class="datepicker">
+<%= form_for([@post, @todo_item], remote: true) do |f| %>
+	<%= f.text_field :content, id: "edit_todo_item_body", placeholder: "New Todo" %>
+	<%= f.text_field :deadline, id: "edit_deadline", type: "date", style: "width: 30%;" %>
+	<%= f.submit(id: "update_todo")%>
+<% end %>
+</div>

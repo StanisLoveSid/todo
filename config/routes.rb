@@ -42,9 +42,8 @@ resources :users do
 end
   resources :posts do
     resources :todo_items do
-      collection { post :sort }
+      post :sort, on: :collection
       member do
-        patch :edit
         patch :complete
       end
       

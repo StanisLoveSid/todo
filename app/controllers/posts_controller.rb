@@ -2,8 +2,8 @@ class PostsController < ApplicationController
 	before_action :authenticate_user!, except: [:index, :show]
 	before_filter :set_locale
 	impressionist actions: [:show], unique: [:session_hash]
-    caches_page :show, :new, :upvote, :downvote
-
+    caches_page :new, :upvote, :downvote
+    respond_to :js
     def search
         if params[:search].present?
            @posts = Post.search(params[:search])
@@ -13,37 +13,39 @@ class PostsController < ApplicationController
     end
 
 	def index
-		
+    
+		@todo_items = TodoItem.all
 		   if params[:tag].present? 
-              @posts = Post.tagged_with(params[:tag]).paginate(:page => params[:page], :per_page => 6)
+              @posts = Post.tagged_with(params[:tag])
            else
-              @posts = Post.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 6)
+              @posts = Post.all.order("created_at DESC")
     
            end 
-		
+       	
 	end
 
 	def new
           @post = Post.new
+          respond_to :js
 	end
 
 	def create
 		@user = current_user
 		@post = current_user.posts.build(post_params)
-	      if @post.save
-
-	      	  PostMailer.post_created(@user).deliver
-		      redirect_to @post
-	      else
-		      render 'new'
-	      end
+	    if @post.save
+       
+	    respond_with @post
+        else
+          flash[:error] = "Oops, something went wrong"
+        end
 	end
 	
 	def show
 		
 		@post = Post.find(params[:id])
 		@user = @post.votes_for.up.by_type(User).voters
-		
+		respond_with @post
+
 	end
 
 	def user_posts
@@ -52,23 +54,28 @@ class PostsController < ApplicationController
 
 	def edit
 		@post = Post.find(params[:id])
+		respond_to :js
 	end
 
 	def update
 		@post = Post.find(params[:id])
-		if @post.update(params[:post].permit(:title, :body, :link, :image, :video, :tag_list))
-		   redirect_to @post
-		else
-			render 'edit'
-		end
+	   @post.update(params[:post].permit(:title, :body, :link, :image, :video, :tag_list))
+		   
+		
+		respond_with @post
 	end
 
 	def destroy
-
+        if params[:tag].present? 
+              @posts = Post.tagged_with(params[:tag])
+           else
+              @posts = Post.all.order("created_at DESC")
+    
+           end 
 		@post = Post.find(params[:id])
 		@post.destroy
-
-		redirect_to root_path
+    
+		respond_to :js
 	end
 
     def upvote
@@ -77,6 +84,7 @@ class PostsController < ApplicationController
     	respond_to do |format|
     		format.html {redirect_to :back }
     		format.json { render json: { count: @post.get_upvotes.size } }
+        format.js 
     	end
     end
 
@@ -86,6 +94,7 @@ class PostsController < ApplicationController
     	respond_to do |format|
     		format.html {redirect_to :back }
     		format.json { render json: { count: @post.get_downvotes.size  } }
+        format.js
     	end
     end
 
